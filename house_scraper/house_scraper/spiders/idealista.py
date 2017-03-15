@@ -8,6 +8,9 @@ class IdealistaSpider(scrapy.Spider):
     start_urls = ['https://www.idealista.com/alquiler-viviendas/barcelona-barcelona/con-precio-hasta_900,terraza,publicado_ultimo-mes/']
 
     def parse(self, response):
-        publications = response.css('article .item')
+        publications = response.css('.items-container > article > .item')
         for house in publications:
-            yield {'title': house.css('a::attr(title)').extract_first()}
+            yield {
+                'id': int(house.css('::attr(data-adid)').extract_first()),
+                'title': house.css('a.item-link::attr(title)').extract_first(),
+                'url': house.css('a.item-link::attr(href)').extract_first()}
