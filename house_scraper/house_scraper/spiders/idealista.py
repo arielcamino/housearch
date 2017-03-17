@@ -15,13 +15,22 @@ class IdealistaSpider(scrapy.Spider):
     def parse(self, response):
         self.domain = 'https://www.idealista.com'
         publications = response.css('.items-container > article > .item')
-        for house in publications:
+        for house in publications[:1]:
             url = house.css('.item-link::attr(href)').extract_first()
+            #puede lanzar items, lo scrapea, y si lanzas urls como aca, definis la url y el callback
             yield Request(
                 url=self.domain + url,
                 callback=self.parse_publication)
 
     def parse_publication(self, response):
         loader = ItemLoader(response=response, item=IdealistaItem())
+        loader.add_css('id_', 'input[name="adId"]::attr(value)')
         loader.add_css('title', 'h1 span::text')
+        loader.add_css('size', '#main >.container > .clearfix .main-info .info-data span:nth-child(2) .txt-big::text')
+        loader.add_css('price', '#main >.container > .clearfix .main-info .info-data span:nth-child(1) .txt-big::text')
+        loader.add_css('deposit_months', '.txt-deposit > span::text')
+        loader.add_css('pictures', '.placeholder-multimedia img::attr(data-service)')
+        loader.add_css('description', '.commentsContainer .adCommentsLanguage::text')
+        loader.add_css('price_m2','.details-block div p:nth-child(2)::text')
+        loader.add_css('basic_features', '#details > div:nth-child(3) ul li::text')
         yield loader.load_item()

@@ -6,7 +6,7 @@
 # http://doc.scrapy.org/en/latest/topics/items.html
 
 import scrapy
-from scrapy.loader.processors import TakeFirst
+from scrapy.loader.processors import TakeFirst, MapCompose
 
 
 class IdealistaItem(scrapy.Item):
@@ -16,10 +16,12 @@ class IdealistaItem(scrapy.Item):
     size = scrapy.Field(output_processor=TakeFirst())
     price = scrapy.Field(output_processor=TakeFirst())
     deposit_months = scrapy.Field(output_processor=TakeFirst())
-    pictures = scrapy.Field()
+    pictures = scrapy.Field(output_processor=MapCompose(
+                lambda v: v.replace(',WEB_DETAIL', '')))
+
     description = scrapy.Field(output_processor=TakeFirst())
     price_m2 = scrapy.Field(output_processor=TakeFirst())
-    basic_features = scrapy.Field(output_processor=TakeFirst())
+    basic_features = scrapy.Field()
     building_features = scrapy.Field()
     equipment = scrapy.Field()
     street = scrapy.Field(output_processor=TakeFirst())
