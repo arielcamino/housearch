@@ -13,7 +13,7 @@ class House(models.Model):
     updated_date = models.DateTimeField(null=True, blank=True)
     updated_date_string = models.CharField(max_length=256, null=True,
                                            blank=True)
-    advertiser_name = models.CharField(max_length=256)
+    advertiser_name = models.CharField(max_length=256, null=True, blank=True)
     advertiser_phone = models.CharField(max_length=256, null=True, blank=True)
     city = models.CharField(max_length=256, null=True, blank=True)
     district = models.CharField(max_length=256, null=True, blank=True)
@@ -43,4 +43,4 @@ class HouseImage(models.Model):
     url_small = models.URLField(max_length=512, null=True, blank=True)
 
     def __unicode__(self):
-        return str(self.house)
+        return self.house.title

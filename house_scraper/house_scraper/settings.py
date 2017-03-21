@@ -68,7 +68,15 @@ DOWNLOAD_DELAY = 0.5
 #ITEM_PIPELINES = {
 #    'house_scraper.pipelines.SomePipeline': 300,
 #}
+ITEM_PIPELINES = {
+   'house_scraper.pipelines.SaveHousesPipeline': 100,
+}
 
+import sys
+sys.path.append('../')
+
+import os
+os.environ['DJANGO_SETTINGS_MODULE'] = 'housearch.settings'
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html
 #AUTOTHROTTLE_ENABLED = True

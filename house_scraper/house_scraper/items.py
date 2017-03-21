@@ -12,7 +12,7 @@ from scrapy.loader.processors import TakeFirst, MapCompose, Compose
 
 class IdealistaItem(scrapy.Item):
     # define the fields for your item here like:
-    id_ = scrapy.Field(output_processor=TakeFirst())
+    external_id = scrapy.Field(output_processor=TakeFirst())
     url = scrapy.Field(output_processor=TakeFirst())
     title = scrapy.Field(output_processor=TakeFirst())
     size = scrapy.Field(output_processor=TakeFirst())
@@ -30,8 +30,9 @@ class IdealistaItem(scrapy.Item):
     description = scrapy.Field(output_processor=TakeFirst())
     price_m2 = scrapy.Field(output_processor=Compose(
                 lambda v: v[0],
-                lambda v: re.findall('\d+\,*\d*', v)[0])
-                )
+                lambda v: re.findall('\d+\,*\d*', v)[0],
+                lambda v: v.replace(',', '.')
+                ))
     basic_features = scrapy.Field()
     building_features = scrapy.Field()
     equipment = scrapy.Field()
