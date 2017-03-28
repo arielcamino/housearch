@@ -16,7 +16,10 @@ class IdealistaItem(scrapy.Item):
     url = scrapy.Field(output_processor=TakeFirst())
     title = scrapy.Field(output_processor=TakeFirst())
     size = scrapy.Field(output_processor=TakeFirst())
-    price = scrapy.Field(output_processor=TakeFirst())
+    price = scrapy.Field(output_processor=Compose(
+                        lambda v: v[0],
+                        lambda v: v.replace('.', ''),
+                        ))
     deposit_months = scrapy.Field(output_processor=Compose(
                 lambda v: v[0],
                 lambda v: re.findall('Fianza de (\d+)', v)[0])
@@ -27,7 +30,7 @@ class IdealistaItem(scrapy.Item):
                 lambda v: v.replace(',WEB_DETAIL', ''),
                 lambda v: v.replace('WEB_DETAIL', 'WEB_LISTING')
                 ))
-    description = scrapy.Field(output_processor=TakeFirst())
+    description = scrapy.Field()
     price_m2 = scrapy.Field(output_processor=Compose(
                 lambda v: v[0],
                 lambda v: re.findall('\d+\,*\d*', v)[0],

@@ -22,7 +22,8 @@ class SaveHousesPipeline(object):
             house.title = item['title']
             house.url = item.get('url')
             house.title = item.get('title')
-            house.description = item.get('description')
+            if item.get('description'):
+                house.description = ' '.join(item.get('description'))
             house.updated_date = item.get('updated_date')
             house.updated_date_string = item.get('updated')
             house.advertiser_name = item.get('advertiser_name')

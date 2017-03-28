@@ -37,5 +37,6 @@ class HouseSerializer(serializers.ModelSerializer):
             'size',
             'price',
             'deposit_months',
-            'houseimage_set'
+            'houseimage_set',
+            'rooms'
         )
