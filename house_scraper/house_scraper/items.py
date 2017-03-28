@@ -43,3 +43,7 @@ class IdealistaItem(scrapy.Item):
     updated = scrapy.Field(output_processor=TakeFirst())
     advertiser_phone = scrapy.Field(output_processor=TakeFirst())
     advertiser_name = scrapy.Field(output_processor=TakeFirst())
+    rooms = scrapy.Field(output_processor=Compose(
+                lambda v: v[0],
+                lambda v: re.findall('(\d+)', v)[0])
+                )

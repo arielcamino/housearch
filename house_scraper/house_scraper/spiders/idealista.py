@@ -53,6 +53,7 @@ class IdealistaSpider(scrapy.Spider):
         loader.add_css('updated', '#stats p::text')
         loader.add_css('advertiser_phone', '.phone >p::text')
         loader.add_css('advertiser_name','.advertiser-data > p:first-child::text')
+        loader.add_css('rooms', '#main >.container > .clearfix .main-info .info-data span:nth-child(3) .txt-big::text')
 
         loader.add_css('pictures', '.placeholder-multimedia img::attr(data-service)')
         loader.add_css('mini_pictures', '.placeholder-multimedia img::attr(data-service)')

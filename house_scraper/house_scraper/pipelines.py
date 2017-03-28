@@ -35,6 +35,7 @@ class SaveHousesPipeline(object):
             house.size = item.get('size')
             house.price = item.get('price')
             house.deposit_months = item.get('deposit_months')
+            house.rooms = item.get('rooms')
 
             if item.get('basic_features'):
                 house.basic_features = ','.join(item.get('basic_features'))
